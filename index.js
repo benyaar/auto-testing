@@ -6,6 +6,26 @@ const path = require('path')
 const fs = require('fs')
 
 app.use(express.static(path.join(__dirname, 'log')));
+
+
+app.get('/', (req, res) => {
+    res.send(`
+        <!DOCTYPE html>
+        <html lang="uk">
+        <head>
+            <meta charset="UTF-8">
+            <title>Main</title>
+        </head>
+        <body>
+            <h1>Welcome!</h1>
+            <form action="/start-test" method="get">
+                <button type="submit">GET TEST REPORT</button>
+            </form>
+        </body>
+        </html>
+    `);
+});
+
 app.get('/test-route', (req, res) => {
     res.status(200).send('this test')
 })
@@ -22,11 +42,10 @@ app.get('/start-test', async (req, res) => {
             if (!fs.existsSync(path.join(__dirname, link + '.html'))) {
                 throw Error('not file')
             }
-          
+
             return res.redirect(`/${link.replace('log', '')}.html`);
         } catch (err) {
             console.log(err);
-            
             await new Promise(resolve => setTimeout(resolve, interval));
             waited += interval;
         }
@@ -37,4 +56,4 @@ app.get('/start-test', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-})
+});
