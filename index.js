@@ -9,22 +9,9 @@ app.use(express.static(path.join(__dirname, 'log')));
 
 
 app.get('/', (req, res) => {
-    res.send(`
-        <!DOCTYPE html>
-        <html lang="uk">
-        <head>
-            <meta charset="UTF-8">
-            <title>Main</title>
-        </head>
-        <body>
-            <h1>Welcome!</h1>
-            <form action="/start-test" method="get">
-                <button type="submit">GET TEST REPORT</button>
-            </form>
-        </body>
-        </html>
-    `);
+    res.sendFile(path.join(__dirname, 'index.html'))
 });
+
 
 app.get('/test-route', (req, res) => {
     res.status(200).send('this test')
