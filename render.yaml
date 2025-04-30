@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: auto-testing
+    env: node
+    buildCommand: npm install
+    startCommand: npm run start
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: develompent
+    autoDeploy: true
